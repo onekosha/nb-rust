@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.netbeans.modules</groupId>
+    <artifactId>nb-rust</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>nbm</packaging>
+    <name>Rust Module</name>
+    <inceptionYear>2017</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>manual</distribution>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <comments>The Apache License is a permissive free software license written by the Apache Software Foundation.</comments>
+        </license>
+    </licenses>
+    <build>
+        <finalName>nb-rust-${netbeans.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <version>4.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <useOSGiDependencies>false</useOSGiDependencies>
+                    <licenseName>Apache License, Version 2.0</licenseName>
+                    <licenseFile>./LICENSE</licenseFile>
+                    <author>Sandy Corn</author>
+                    <descriptor>${module.description}</descriptor>
+                    <!--<nbmBuildDir>../</nbmBuildDir>-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.7</version>
+                <configuration>
+                    <sourceDirectory>${basedir}</sourceDirectory>
+                    <grammars>Rust.g4</grammars>
+                    <visitor>true</visitor>
+                    <listener>true</listener>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>antlr</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <repositories>
+        <repository>
+            <id>netbeans</id>
+            <name>Repository hosting NetBeans modules</name>
+            <url>http://bits.netbeans.org/nexus/content/groups/netbeans</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-api-annotations-common</artifactId>
+            <version>${netbeans.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-maven-plugin</artifactId>
+            <version>4.7</version>
+        </dependency>
+    </dependencies>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <netbeans.version>RELEASE82</netbeans.version>
+    </properties>
+</project>
